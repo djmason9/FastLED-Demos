@@ -19,11 +19,11 @@ Confetti flashes colours within a limited hue. It's been modified from Mark's or
 #endif
 
 // Fixed definitions cannot change on the fly.
-#define LED_DT 12                                             // Data pin to connect to the strip.
-#define LED_CK 11                                             // Clock pin for the strip.
-#define COLOR_ORDER BGR                                       // Are they RGB, GRB or what??
-#define LED_TYPE APA102                                       // Don't forget to change LEDS.addLeds
-#define NUM_LEDS 20                                           // Number of LED's.
+#define LED_DT 5                                             // Data pin to connect to the strip.
+//#define LED_CK 11                                             // Clock pin for the strip.
+#define COLOR_ORDER GRB                                       // Are they RGB, GRB or what??
+#define LED_TYPE WS2811                                       // Don't forget to change LEDS.addLeds
+#define NUM_LEDS 256                                           // Number of LED's.
 
 // Initialize changeable global variables.
 uint8_t max_bright = 128;                                      // Overall brightness definition. It can be changed on the fly.
@@ -47,8 +47,9 @@ void setup() {
   delay(1000);                                                // Power-up safety delay or something like that.
   Serial.begin(115200);
 
-//  LEDS.addLeds<LED_TYPE, LED_DT, COLOR_ORDER>(leds, NUM_LEDS);    // Use this for WS2812B
-  LEDS.addLeds<LED_TYPE, LED_DT, LED_CK, COLOR_ORDER>(leds, NUM_LEDS);  // Use this for WS2801 or APA102
+  FastLED.addLeds<LED_TYPE,LED_DT,COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
+  
+//  LEDS.addLeds<LED_TYPE, LED_DT, LED_CK, COLOR_ORDER>(leds, NUM_LEDS);  // Use this for WS2801 or APA102
 
   FastLED.setBrightness(max_bright);
   set_max_power_in_volts_and_milliamps(5, 500);               // FastLED power management set at 5V, 500mA.
