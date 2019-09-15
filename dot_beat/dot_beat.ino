@@ -17,11 +17,11 @@
 #endif
 
 // Fixed definitions cannot change on the fly.
-#define LED_DT 12                                             // Serial data pin
-#define LED_CK 11                                             // Serial clock pin for APA102 or WS2801
+#define LED_DT 5                                             // Serial data pin
+//#define LED_CK 11                                             // Serial clock pin for APA102 or WS2801
 #define COLOR_ORDER BGR                                       // It's GRB for WS2812B
-#define LED_TYPE APA102                                       // What kind of strip are you using (APA102, WS2801 or WS@2812B
-#define NUM_LEDS 60                                           // Number of LED's
+#define LED_TYPE WS2811                                       // What kind of strip are you using (APA102, WS2801 or WS@2812B
+#define NUM_LEDS 256                                          // Number of LED's
 
 // Initialize changeable global variables.
 uint8_t max_bright = 128;                                     // Overall brightness definition. It can be changed on the fly.
@@ -41,8 +41,8 @@ void setup() {
   delay(1000);                                                // Power-up safety delay or something like that.
   Serial.begin(115200);
 
-//  LEDS.addLeds<LED_TYPE, LED_DT, COLOR_ORDER>(leds, NUM_LEDS);       // Use this for WS2812B
-  LEDS.addLeds<LED_TYPE, LED_DT, LED_CK, COLOR_ORDER>(leds, NUM_LEDS); // Use this for APA102 or WS2801
+  LEDS.addLeds<LED_TYPE, LED_DT, COLOR_ORDER>(leds, NUM_LEDS);       // Use this for WS2812B
+//  LEDS.addLeds<LED_TYPE, LED_DT, LED_CK, COLOR_ORDER>(leds, NUM_LEDS); // Use this for APA102 or WS2801
 
   FastLED.setBrightness(max_bright);
   set_max_power_in_volts_and_milliamps(5, 500);
