@@ -18,11 +18,11 @@
 #endif
 
 // Fixed definitions cannot change on the fly.
-#define LED_DT 12                                             // Data pin to connect to the strip.
-#define LED_CK 11                                             // Clock pin for WS2801 or APA102.
+#define LED_DT 5                                             // Data pin to connect to the strip.
+//#define LED_CK 11                                             // Clock pin for WS2801 or APA102.
 #define COLOR_ORDER BGR                                       // It's GRB for WS2812 and BGR for APA102.
-#define LED_TYPE APA102                                       // Using APA102, WS2812, WS2801. Don't forget to modify LEDS.addLeds to suit.
-#define NUM_LEDS 60                                           // Number of LED's.
+#define LED_TYPE WS2811                                       // Using APA102, WS2812, WS2801. Don't forget to modify LEDS.addLeds to suit.
+#define NUM_LEDS 256                                           // Number of LED's.
 
 // Global variables can be changed on the fly.
 uint8_t max_bright = 128;                                      // Overall brightness definition. It can be changed on the fly.
@@ -51,8 +51,8 @@ void setup() {
   Serial.begin(115200);                                        // Initialize serial port for debugging.
   delay(1000);                                                // Soft startup to ease the flow of electrons.
 
-//  LEDS.addLeds<LED_TYPE, LED_DT, COLOR_ORDER>(leds, NUM_LEDS);    // Use this for WS2812B
-  LEDS.addLeds<LED_TYPE, LED_DT, LED_CK, COLOR_ORDER>(leds, NUM_LEDS);  // Use this for WS2801 or APA102
+  LEDS.addLeds<LED_TYPE, LED_DT, COLOR_ORDER>(leds, NUM_LEDS);    // Use this for WS2812B
+//  LEDS.addLeds<LED_TYPE, LED_DT, LED_CK, COLOR_ORDER>(leds, NUM_LEDS);  // Use this for WS2801 or APA102
 
   currentPalette  = CRGBPalette16(CRGB::Black);
   targetPalette   = RainbowColors_p;
@@ -110,4 +110,3 @@ void ChangeMe() {                                             // A time (rather 
   }
   
 } // ChangeMe()
-
